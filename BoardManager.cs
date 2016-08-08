@@ -6,15 +6,16 @@ using System.IO;
 
 public class BoardManager : MonoBehaviour {
 	char[] iterateMe;
+	char [,] holdMe = new char[10,10];
+	char[] changedArr = new char[100];
 
-	public int columns=8;
-	public int rows=8;
+	public int columns=10;
+	public int rows=10;
 	public GameObject [] floorTiles;
-
-
 	private Transform boardHolder;
-	//This isn't used for board setup
-	private List <Vector3> gridPositions = new List<Vector3>();
+
+
+	//private List <Vector3> gridPositions = new List<Vector3>();
 
 	//Makes a safe space to put blocking items into
 	/*void InitialiseList(){
@@ -37,7 +38,7 @@ public class BoardManager : MonoBehaviour {
 		int counter = 0;
 		for (int x = 0; x < columns; x++) {
 			for (int y = 0; y < rows; y++) {
-				//use the series of x and 0s to determine collider placement
+				//use x and 0s to determine collider placement
 				if (iterateMe [counter] == 'x') {
 					toInstantiate = floorTiles [1];
 				} else {
@@ -50,13 +51,16 @@ public class BoardManager : MonoBehaviour {
 		}
 	
 	}
-	Vector3 RandomPosition(){
+	/*
+	 * Old tutorial code -- for deletion once I'm sure it's not needed
+	 * 
+	 * Vector3 RandomPosition(){
 		int randomIndex = Random.Range (0, gridPositions.Count);
 		Vector3 randomPosition = gridPositions [randomIndex];
 		gridPositions.RemoveAt (randomIndex);
 		return randomPosition;
 	}
-	/*void LayoutObjectAtRandom(GameObject[] tileArray,int min, int max){
+	void LayoutObjectAtRandom(GameObject[] tileArray,int min, int max){
 		int objectCount = Random.Range (min, max+1);
 		for (int i = 0; i < objectCount; i++) {
 			//Choose a random tile prefab from the tiles array
@@ -73,9 +77,11 @@ public class BoardManager : MonoBehaviour {
 			{
 				// Read the stream to a string, and write the string to the console.
 				String line = myStreamReader.ReadToEnd();
-				//Trying to get rid of newline characters so the original file can be nice and readable
+				//Get rid of newline characters
 				line=line.Replace(Environment.NewLine, string.Empty);
-				iterateMe = line.ToCharArray(); 
+				//make it an array
+				iterateMe = line.ToCharArray();
+				Debug.Log(line);
 			}
 		}
 		catch (Exception e)
@@ -83,9 +89,35 @@ public class BoardManager : MonoBehaviour {
 			Debug.Log("The file could not be read:");
 			Debug.Log(e.Message);
 		}
+		//Wrangle the array
+		int count = 0;
+		for (int x = 0; x < columns; x++) {
+			for (int y = 0; y < rows; y++) {
+				Debug.Log("iterate is");
+				Debug.Log (iterateMe [count]);
+				holdMe [x, y] = iterateMe [count];
+				count++;
 			}
+		}
+		count = 0;
+		for (int x = 0; x < columns; x++) {
+			for (int y = rows-1; y >= 0; y--) {
+				//Debug.Log("changed gets");
+				//Debug.Log (holdMe [y, x]);
+
+				//Debug.Log (y);
+				//Debug.Log("x is:");
+				//Debug.Log (x);
+				changedArr [count] = holdMe [y, x];
+				count++;
+			}
+		}
+		Debug.Log (changedArr [0]);
+		
+	}
 
 
+	//Level is vestigial code from a tutorial
 	public void SetupScene(int level){
 		letsReadAFile ();
 		BoardSetup ();

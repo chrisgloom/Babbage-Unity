@@ -39,7 +39,7 @@ public class BoardManager : MonoBehaviour {
 		for (int x = 0; x < columns; x++) {
 			for (int y = 0; y < rows; y++) {
 				//use x and 0s to determine collider placement
-				if (iterateMe [counter] == 'x') {
+				if (changedArr [counter] == 'x') {
 					toInstantiate = floorTiles [1];
 				} else {
 					toInstantiate = floorTiles [0];
@@ -77,11 +77,12 @@ public class BoardManager : MonoBehaviour {
 			{
 				// Read the stream to a string, and write the string to the console.
 				String line = myStreamReader.ReadToEnd();
+				Debug.Log(line);
 				//Get rid of newline characters
 				line=line.Replace(Environment.NewLine, string.Empty);
 				//make it an array
 				iterateMe = line.ToCharArray();
-				Debug.Log(line);
+
 			}
 		}
 		catch (Exception e)
@@ -93,17 +94,18 @@ public class BoardManager : MonoBehaviour {
 		int count = 0;
 		for (int x = 0; x < columns; x++) {
 			for (int y = 0; y < rows; y++) {
-				Debug.Log("iterate is");
-				Debug.Log (iterateMe [count]);
+				//Debug.Log("iterate is");
+				//Debug.Log (iterateMe [count]);
 				holdMe [x, y] = iterateMe [count];
 				count++;
 			}
 		}
 		count = 0;
 		for (int x = 0; x < columns; x++) {
+			//In theory this loop should flip the array around correctly for laying out
 			for (int y = rows-1; y >= 0; y--) {
-				//Debug.Log("changed gets");
-				//Debug.Log (holdMe [y, x]);
+				Debug.Log("changed gets");
+				Debug.Log (holdMe [y, x]);
 
 				//Debug.Log (y);
 				//Debug.Log("x is:");

@@ -18,7 +18,7 @@ public class B_Walk : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		movement ();
 	}
 

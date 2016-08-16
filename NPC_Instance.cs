@@ -6,4 +6,5 @@ public class NPC_Instance : MonoBehaviour {
 	public string NPCname;
 	//These are to be used for a pokemon-like npc wander within a fixed area
 	public int roamX, roamY;
+
 }

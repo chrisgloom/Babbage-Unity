@@ -10,6 +10,7 @@ public class NPC_Wander : MonoBehaviour {
 
 	bool timeDone;
 	float waitTime = 2f;
+	public float speed = 5f;
 
 	void Awake(){
 		timeDone = false;
@@ -33,7 +34,7 @@ public class NPC_Wander : MonoBehaviour {
 		myBody = GetComponent<Rigidbody2D> ();
 	}
 
-	void FixedUpdate () {
+	void Update () {
 		lookAlive ();
 	}
 
@@ -49,7 +50,7 @@ public class NPC_Wander : MonoBehaviour {
 				case(MoveState.Wait):
 					Debug.Log ("wait got called");
 					//Stay where you are? Does this work?
-					myBody.MovePosition (new Vector2(transform.position.x, transform.position.y));
+					//myBody.MovePosition (new Vector2(transform.position.x, transform.position.y));
 					timeDone = false;
 					break;
 				case(MoveState.walkDirection):
@@ -74,22 +75,43 @@ public class NPC_Wander : MonoBehaviour {
 		}
 	}
 	void randomWalkDir(){
+		//Vector2 targetPos = new Vector2(
+		Vector3 storedPos = transform.position;
+		float iter = 0f;
+
 		switch(myWalk) {
 		case(WhereWalk.Up):
-			myBody.MovePosition (new Vector2 (transform.position.x,transform.position.y + 10 ));
+			while (iter < 1f) {
+				Debug.Log (iter);
+				iter += Time.deltaTime * speed;
+				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
+			}
 			break;
 		case(WhereWalk.Down):
-			myBody.MovePosition (new Vector2 (transform.position.x, transform.position.y - 10));
+			while (iter < 1f) {
+				Debug.Log (iter);
+				iter += Time.deltaTime * speed;
+				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
+			}
 			break;
 		case(WhereWalk.Left):
-			myBody.MovePosition (new Vector2 (transform.position.x - 10, transform.position.y));
+			while (iter < 1f) {
+				Debug.Log (iter);
+				iter += Time.deltaTime * speed;
+				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
+			}
 			break;
 		case(WhereWalk.Right):
-			myBody.MovePosition (new Vector2 (transform.position.x + 10,(transform.position.y)));
+			while (iter < 1f) {
+				Debug.Log (iter);
+				iter += Time.deltaTime * speed;
+				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
+			}
 			break;
 		default:
 			break;
 		}
+
 	}
 
 }

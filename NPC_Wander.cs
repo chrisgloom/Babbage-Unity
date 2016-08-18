@@ -76,42 +76,56 @@ public class NPC_Wander : MonoBehaviour {
 	}
 	void randomWalkDir(){
 		//Vector2 targetPos = new Vector2(
-		Vector3 storedPos = transform.position;
-		float iter = 0f;
+		//Vector3 storedPos = transform.position;
+		//float iter = 0f;
 
 		switch(myWalk) {
 		case(WhereWalk.Up):
-			while (iter < 1f) {
+			/*while (iter < 1f) {
 				Debug.Log (iter);
 				iter += Time.deltaTime * speed;
 				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
-			}
+			}*/
+			StartCoroutine (slowLerp ());
 			break;
 		case(WhereWalk.Down):
-			while (iter < 1f) {
+			/*while (iter < 1f) {
 				Debug.Log (iter);
 				iter += Time.deltaTime * speed;
 				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
-			}
+			}*/
+			StartCoroutine (slowLerp ());
 			break;
 		case(WhereWalk.Left):
-			while (iter < 1f) {
+			/*while (iter < 1f) {
 				Debug.Log (iter);
 				iter += Time.deltaTime * speed;
 				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
-			}
+			}*/
+			StartCoroutine (slowLerp ());
 			break;
 		case(WhereWalk.Right):
-			while (iter < 1f) {
+			/*while (iter < 1f) {
 				Debug.Log (iter);
 				iter += Time.deltaTime * speed;
 				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
-			}
+			}*/
+			StartCoroutine (slowLerp ());
 			break;
 		default:
 			break;
 		}
 
+	}
+	IEnumerator slowLerp(){
+		Vector3 storedPos = transform.position;
+		float iter = 0f;
+		while (iter < 1f) {
+			Debug.Log (iter);
+			iter += Time.deltaTime * speed;
+			transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
+			yield return new WaitForEndOfFrame ();
+		}
 	}
 
 }

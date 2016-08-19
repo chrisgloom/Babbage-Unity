@@ -50,7 +50,6 @@ public class NPC_Wander : MonoBehaviour {
 				case(MoveState.Wait):
 					Debug.Log ("wait got called");
 					//Stay where you are? Does this work?
-					//myBody.MovePosition (new Vector2(transform.position.x, transform.position.y));
 					timeDone = false;
 					break;
 				case(MoveState.walkDirection):
@@ -75,55 +74,32 @@ public class NPC_Wander : MonoBehaviour {
 		}
 	}
 	void randomWalkDir(){
-		//Vector2 targetPos = new Vector2(
-		//Vector3 storedPos = transform.position;
-		//float iter = 0f;
-
 		switch(myWalk) {
 		case(WhereWalk.Up):
-			/*while (iter < 1f) {
-				Debug.Log (iter);
-				iter += Time.deltaTime * speed;
-				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
-			}*/
-			StartCoroutine (slowLerp ());
+			//iswalkable() should check for collisions + if in wander range
+			StartCoroutine (slowLerp (0f, 10f));
 			break;
 		case(WhereWalk.Down):
-			/*while (iter < 1f) {
-				Debug.Log (iter);
-				iter += Time.deltaTime * speed;
-				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
-			}*/
-			StartCoroutine (slowLerp ());
+			StartCoroutine (slowLerp (0f, -10f));
 			break;
 		case(WhereWalk.Left):
-			/*while (iter < 1f) {
-				Debug.Log (iter);
-				iter += Time.deltaTime * speed;
-				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
-			}*/
-			StartCoroutine (slowLerp ());
+			StartCoroutine (slowLerp (10f, 0f));
 			break;
 		case(WhereWalk.Right):
-			/*while (iter < 1f) {
-				Debug.Log (iter);
-				iter += Time.deltaTime * speed;
-				transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
-			}*/
-			StartCoroutine (slowLerp ());
+			StartCoroutine (slowLerp (-10f, 0));
 			break;
 		default:
 			break;
 		}
 
 	}
-	IEnumerator slowLerp(){
+
+	IEnumerator slowLerp(float xAdd, float yAdd){
 		Vector3 storedPos = transform.position;
 		float iter = 0f;
 		while (iter < 1f) {
-			Debug.Log (iter);
 			iter += Time.deltaTime * speed;
-			transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x, storedPos.y + 10), iter);
+			transform.position = Vector2.Lerp (storedPos, new Vector2 (storedPos.x + xAdd, storedPos.y + yAdd), iter);
 			yield return new WaitForEndOfFrame ();
 		}
 	}

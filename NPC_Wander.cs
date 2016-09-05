@@ -10,7 +10,7 @@ public class NPC_Wander : MonoBehaviour {
 
 	bool timeDone;
 	float waitTime = 2f;
-	public float speed = 5f;
+	public float speed = 2f;
 
 	void Awake(){
 		timeDone = false;
@@ -77,7 +77,9 @@ public class NPC_Wander : MonoBehaviour {
 		switch(myWalk) {
 		case(WhereWalk.Up):
 			//iswalkable() should check for collisions + if in wander range
-			StartCoroutine (slowLerp (0f, 10f));
+			if (isWalkable ()) {
+				StartCoroutine (slowLerp (0f, 10f));
+			}
 			break;
 		case(WhereWalk.Down):
 			StartCoroutine (slowLerp (0f, -10f));
@@ -92,6 +94,16 @@ public class NPC_Wander : MonoBehaviour {
 			break;
 		}
 
+	}
+
+	bool isWalkable(){
+		if (Physics.Linecast (transform.position, transform.position + Vector3.up)) {
+			Debug.Log ("can't move");
+			return false;
+		} else {
+			return true;
+		}
+	
 	}
 
 	IEnumerator slowLerp(float xAdd, float yAdd){

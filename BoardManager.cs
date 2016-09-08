@@ -77,7 +77,7 @@ public class BoardManager : MonoBehaviour
 	//Level param is vestigial code from a tutorial -- not currently used
 	public void SetupScene (int level)
 	{
-		letsReadAFile ();
-		BoardSetup ();
+		//letsReadAFile ();
+		//BoardSetup ();
 	}
 }

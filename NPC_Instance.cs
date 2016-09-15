@@ -7,11 +7,8 @@ public class NPC_Instance : MonoBehaviour {
 	//These are to be used for a pokemon-like npc wander within a fixed area
 	public int roamX, roamY;
 
-	MoveState myState;
-	WhereWalk myWalk;
-
 	bool timeDone;
-	float waitTime = 2f;
+
 	public float speed = 2f;
 
 	enum MoveState {
@@ -35,11 +32,16 @@ public class NPC_Instance : MonoBehaviour {
 
 	//Called every frame
 	void Update () {
-		lookAlive ();
+		wander ();
 	}
 
 	//if time is done, make a move
-	void lookAlive(){
+	void wander(){
+
+		MoveState myState;
+		WhereWalk myWalk;
+		float waitTime = 2f;
+
 		if (timeDone) {
 			myState = (MoveState)Random.Range (0, 3);
 			switch (myState) {
@@ -55,7 +57,7 @@ public class NPC_Instance : MonoBehaviour {
 				Debug.Log ("walk got called");
 				//walk to a new adjacent random tile
 				myWalk = (WhereWalk)Random.Range (0, 4);
-				randomWalkDir ();
+				randomWalkDir (myWalk);
 				timeDone = false;
 				break;
 			default:
@@ -73,7 +75,7 @@ public class NPC_Instance : MonoBehaviour {
 			}
 		}
 	}
-	void randomWalkDir(){
+	void randomWalkDir(WhereWalk myWalk){
 		switch(myWalk) {
 		case(WhereWalk.Up):
 			//iswalkable() should check for collisions + if in wander range

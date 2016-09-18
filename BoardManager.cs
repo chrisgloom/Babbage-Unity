@@ -31,7 +31,7 @@ public class BoardManager : MonoBehaviour
 				} else {
 					toInstantiate = floorTiles [0];
 				}
-				GameObject instance = Instantiate (toInstantiate, new Vector3 (x * 10, y * 10, 0.0f), Quaternion.identity) as GameObject;
+				GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0.0f), Quaternion.identity) as GameObject;
 				instance.transform.SetParent (boardHolder);
 				counter++;
 			}
@@ -77,7 +77,7 @@ public class BoardManager : MonoBehaviour
 	//Level param is vestigial code from a tutorial -- not currently used
 	public void SetupScene (int level)
 	{
-		//letsReadAFile ();
-		//BoardSetup ();
+		letsReadAFile ();
+		BoardSetup ();
 	}
 }

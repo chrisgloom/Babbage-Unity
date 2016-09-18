@@ -6,6 +6,7 @@ public class NPC_Instance : MonoBehaviour {
 	string NPCname, currentBorough;
 	//These are to be used for a pokemon-like npc wander within a fixed area
 	public int roamX, roamY;
+	float waitTime = 2f;
 
 	bool timeDone;
 
@@ -40,7 +41,7 @@ public class NPC_Instance : MonoBehaviour {
 
 		MoveState myState;
 		WhereWalk myWalk;
-		float waitTime = 2f;
+
 
 		if (timeDone) {
 			myState = (MoveState)Random.Range (0, 3);
@@ -72,6 +73,7 @@ public class NPC_Instance : MonoBehaviour {
 			} else {
 				timeDone = false;
 				waitTime -= Time.deltaTime;
+				Debug.Log (waitTime);
 			}
 		}
 	}
@@ -79,23 +81,23 @@ public class NPC_Instance : MonoBehaviour {
 		switch(myWalk) {
 		case(WhereWalk.Up):
 			//iswalkable() should check for collisions + if in wander range
-			if (isWalkable (0f, 10f)) {
-				StartCoroutine (moveLerp (0f, 10f));
+			if (isWalkable (0f, 1f)) {
+				StartCoroutine (moveLerp (0f, 1f));
 			}
 			break;
 		case(WhereWalk.Down):
-			if (isWalkable (0f, -10f)) {
-				StartCoroutine (moveLerp (0f, -10f));
+			if (isWalkable (0f, -1f)) {
+				StartCoroutine (moveLerp (0f, -1f));
 			}
 			break;
 		case(WhereWalk.Left):
-			if (isWalkable (10f, 0f)) {
-				StartCoroutine (moveLerp (10f, 0f));
+			if (isWalkable (1f, 0f)) {
+				StartCoroutine (moveLerp (1f, 0f));
 			}
 			break;
 		case(WhereWalk.Right):
-			if (isWalkable (-10f, 0)) {
-				StartCoroutine (moveLerp (-10f, 0));
+			if (isWalkable (-1f, 0)) {
+				StartCoroutine (moveLerp (-1f, 0));
 			}
 			break;
 		default:
@@ -105,9 +107,9 @@ public class NPC_Instance : MonoBehaviour {
 	}
 
 	bool isWalkable(float xAdd, float yAdd){
-		Vector3 fromHere = new Vector3 (transform.position.x + xAdd, transform.position.y + yAdd, transform.position.z + 10f);
-		Vector3 toHere = new Vector3 (transform.position.x + xAdd, transform.position.y + yAdd, transform.position.z - 10f);
-		//Debug.DrawLine( fromHere, toHere, Color.red, 4f);
+		Vector3 fromHere = new Vector3 (transform.position.x + xAdd, transform.position.y + yAdd, transform.position.z + 1f);
+		Vector3 toHere = new Vector3 (transform.position.x + xAdd, transform.position.y + yAdd, transform.position.z - 1f);
+		Debug.DrawLine( fromHere, toHere, Color.red, 4f);
 		if (Physics2D.Linecast(fromHere, toHere)) {
 			Debug.Log ("can't move");
 			return false;

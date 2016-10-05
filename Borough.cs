@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Borough : MonoBehaviour {
 	float x_bounds, y_bounds;
 	string name;
 	public GameObject myObject;
+	public Dictionary<Vector2, bool> myTiles;
 
 
 	// Use this for initialization

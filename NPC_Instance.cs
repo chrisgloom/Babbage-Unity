@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NPC_Instance : MonoBehaviour {
 	//Beginnings of a character class
@@ -36,6 +37,12 @@ public class NPC_Instance : MonoBehaviour {
 		wander ();
 	}
 
+	void goTo(){
+		List<Node> openNodes= new List<Node>();	
+		List<Node> closedNodes= new List<Node>();
+	
+	}
+
 	//if time is done, make a move
 	void wander(){
 
@@ -47,15 +54,15 @@ public class NPC_Instance : MonoBehaviour {
 			myState = (MoveState)Random.Range (0, 3);
 			switch (myState) {
 			case(MoveState.Turn):
-				Debug.Log ("turn got called");
+				//debug.Log ("turn got called");
 				timeDone = false;
 				break;
 			case(MoveState.Wait):
-				Debug.Log ("wait got called");
+				//debug.Log ("wait got called");
 				timeDone = false;
 				break;
 			case(MoveState.walkDirection):
-				Debug.Log ("walk got called");
+				//debug.Log ("walk got called");
 				//walk to a new adjacent random tile
 				myWalk = (WhereWalk)Random.Range (0, 4);
 				randomWalkDir (myWalk);
@@ -73,7 +80,7 @@ public class NPC_Instance : MonoBehaviour {
 			} else {
 				timeDone = false;
 				waitTime -= Time.deltaTime;
-				Debug.Log (waitTime);
+				//debug.Log (waitTime);
 			}
 		}
 	}
@@ -109,9 +116,9 @@ public class NPC_Instance : MonoBehaviour {
 	bool isWalkable(float xAdd, float yAdd){
 		Vector3 fromHere = new Vector3 (transform.position.x + xAdd, transform.position.y + yAdd, transform.position.z + 1f);
 		Vector3 toHere = new Vector3 (transform.position.x + xAdd, transform.position.y + yAdd, transform.position.z - 1f);
-		Debug.DrawLine( fromHere, toHere, Color.red, 4f);
+		//debug.DrawLine( fromHere, toHere, Color.red, 4f);
 		if (Physics2D.Linecast(fromHere, toHere)) {
-			Debug.Log ("can't move");
+			//debug.Log ("can't move");
 			return false;
 		} else {
 			return true;

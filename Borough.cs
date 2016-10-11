@@ -4,15 +4,14 @@ using System.Collections.Generic;
 
 public class Borough : MonoBehaviour {
 	float x_bounds, y_bounds;
-	string name;
-	public GameObject myObject;
+	public string borName;
 	public Dictionary<Vector2, bool> myTiles;
 
 
 	// Use this for initialization
 	void Start () {
 		//This should find where the borough has been placed and then store that value
-		Instantiate (myObject, new Vector3 (10, 10, 0.0f), Quaternion.identity);
+		//Instantiate (myObject, new Vector3 (10, 10, 0.0f), Quaternion.identity);
 		x_bounds = transform.position.x;
 		y_bounds = transform.position.y;
 	}

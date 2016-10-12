@@ -6,12 +6,12 @@ using System.IO;
 
 public class BoardManager : MonoBehaviour
 {
-	char[] rawReadIn;
-	char[,] temporaryTwoD = new char[10, 10];
-	char[] clockwiseArr = new char[100];
+	const int columns = 10;
+	const int rows = 10;
 
-	public int columns = 10;
-	public int rows = 10;
+	char[] rawReadIn;
+	char[,] temporaryTwoD = new char[columns, rows];
+	char[] clockwiseArr = new char[columns*rows];
 
 	public GameObject[] floorTiles;
 	private Transform boardHolder;
@@ -26,7 +26,7 @@ public class BoardManager : MonoBehaviour
 		//adds an instance of the script to the boroughObj and then stores a reference in myBorInstance
 		Borough myBorInstance = boroughObj.AddComponent <Borough>();
 		//fill the name of the boroughInstance
-		myBorInstance.borName = "Home";
+		myBorInstance.borName = "BabbageHome";
 		boardHolder = boroughObj.transform;
 
 
@@ -34,17 +34,18 @@ public class BoardManager : MonoBehaviour
 		for (int x = 0; x < columns; x++) {
 			for (int y = 0; y < rows; y++) {
 				//use x and 0s to determine collider placement
-				//blocked is used when adding vector2s to the dict
-				bool blocked;
-				if (clockwiseArr [counter] == 'x') {
+				//isWall is used when adding vector2s to the dict
+				bool isWall;
+				//put this back to clockwiseArr if it breaks
+				if (rawReadIn [counter] == 'x') {
 					toInstantiate = floorTiles [1];
-					blocked = true;
+					isWall = true;
 				} else {
 					toInstantiate = floorTiles [0];
-					blocked = false;
+					isWall = false;
 				}
-				//add each tile as a vector2 and blocking non-blocking bool to the dict
-				myBorInstance.myTiles.Add(new Vector2(x, y),blocked);
+				//add each tile as a vector2 and bool noting whether it's a wall or not to the dict
+				myBorInstance.myTiles.Add(new Vector2(x, y),isWall);
 
 				GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0.0f), Quaternion.identity) as GameObject;
 				instance.transform.SetParent (boardHolder);
@@ -71,22 +72,8 @@ public class BoardManager : MonoBehaviour
 			Debug.Log ("The file could not be read:");
 			Debug.Log (e.Message);
 		}
-		//create a two dimensional array from original input
-		int count = 0;
-		for (int x = 0; x < columns; x++) {
-			for (int y = 0; y < rows; y++) {
-				temporaryTwoD [x, y] = rawReadIn [count];
-				count++;
-			}
-		}
-		count = 0;
-		for (int x = 0; x < columns; x++) {
-			//Read original input into new array rotated 90deg clockwise
-			for (int y = rows - 1; y >= 0; y--) {
-				clockwiseArr [count] = temporaryTwoD [y, x];
-				count++;
-			}
-		}	
+			
+
 	}
 
 

@@ -38,8 +38,10 @@ public class NPC_Instance : MonoBehaviour {
 	}
 
 	void goTo(){
-		List<Node> openNodes= new List<Node>();	
-		List<Node> closedNodes= new List<Node>();
+		List<Node> openNodes = new List<Node> ();	
+		List<Node> closedNodes = new List<Node> ();
+
+		Node currentNode, targetNode;
 	
 	}
 

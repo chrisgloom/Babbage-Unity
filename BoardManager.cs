@@ -48,6 +48,8 @@ public class BoardManager : MonoBehaviour
 				myBorInstance.myTiles.Add(new Vector2(x, y),isWall);
 
 				GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0.0f), Quaternion.identity) as GameObject;
+				//name of the object is its xy
+				instance.name = String.Format("tile{0}{1}",instance.transform.position.x,instance.transform.position.y);
 				instance.transform.SetParent (boardHolder);
 				//possibly try to add to a dictionary of vector 2s here but it would need to get held inside the boroughObj?
 				counter++;
@@ -72,8 +74,6 @@ public class BoardManager : MonoBehaviour
 			Debug.Log ("The file could not be read:");
 			Debug.Log (e.Message);
 		}
-			
-
 	}
 
 

@@ -10,8 +10,6 @@ public class BoardManager : MonoBehaviour
 	const int rows = 10;
 
 	char[] rawReadIn;
-	char[,] temporaryTwoD = new char[columns, rows];
-	char[] clockwiseArr = new char[columns*rows];
 
 	public GameObject[] floorTiles;
 	private Transform boardHolder;
@@ -44,14 +42,17 @@ public class BoardManager : MonoBehaviour
 					toInstantiate = floorTiles [0];
 					isWall = false;
 				}
-				//add each tile as a vector2 and bool noting whether it's a wall or not to the dict
-				myBorInstance.myTiles.Add(new Vector2(x, y),isWall);
+				//add each node to borough's dict as a vector2 and node if it's not a wall
 
 				GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0.0f), Quaternion.identity) as GameObject;
 				//name of the object is its xy
 				instance.name = String.Format("tile{0}{1}",instance.transform.position.x,instance.transform.position.y);
 				instance.transform.SetParent (boardHolder);
-				//possibly try to add to a dictionary of vector 2s here but it would need to get held inside the boroughObj?
+				if (!isWall) {
+					//try to do this adding the node that's going to sit on the prefab itself. Does that copy or store a reference?
+					Node addedNode = instance.AddComponent<Node>();
+					myBorInstance.myNodes.Add (new Vector2 (x, y), addedNode);
+				}
 				counter++;
 			}
 		}

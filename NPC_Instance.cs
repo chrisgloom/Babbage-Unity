@@ -10,8 +10,9 @@ public class NPC_Instance : MonoBehaviour {
 	float waitTime = 2f;
 
 	bool timeDone;
-
 	public float speed = 2f;
+
+
 
 	enum MoveState {
 		Turn,
@@ -38,11 +39,7 @@ public class NPC_Instance : MonoBehaviour {
 	}
 
 	void goTo(){
-		List<Node> openNodes = new List<Node> ();	
-		List<Node> closedNodes = new List<Node> ();
-
-		Node currentNode, targetNode;
-	
+		//get a reference to the pathing script and then call the function with the coords
 	}
 
 	//if time is done, make a move

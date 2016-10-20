@@ -48,11 +48,16 @@ public class BoardManager : MonoBehaviour
 				//name of the object is its xy
 				instance.name = String.Format("tile{0}{1}",instance.transform.position.x,instance.transform.position.y);
 				instance.transform.SetParent (boardHolder);
+
+				//runs if not a wall
 				if (!isWall) {
 					//try to do this adding the node that's going to sit on the prefab itself. Does that copy or store a reference?
-					Node addedNode = instance.AddComponent<Node>();
-					myBorInstance.myNodes.Add (new Vector2 (x, y), addedNode);
+					//Node addedNode = instance.AddComponent<Node>();
+					//Debug.Log(String.Format ("testing {0}", new Vector2 (x, y)));
+					//myBorInstance.myNodes.Add (new Vector2 (x, y), addedNode);
+					myBorInstance.floorTiles.Add(new Vector2(x, y), true);
 				}
+
 				counter++;
 			}
 		}

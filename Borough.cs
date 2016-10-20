@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Borough : MonoBehaviour {
 	float x_bounds, y_bounds;
 	public string borName;
-	public Dictionary<Vector2, Node> myNodes = new Dictionary<Vector2, Node>();
+	public Dictionary<Vector2, bool> floorTiles = new Dictionary<Vector2, bool>();
 
 
 	// Use this for initialization

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections;
 
 
-public class Node : MonoBehaviour {
+//node gets pooped out by the actual algorithm
 
-	public Vector2 myCoords;
-	public bool walkable;
+public class Node : MonoBehaviour {
+	Vector2 mycoords;
 	public Node parent;
 	public Node child;
 	public List<Node> neighbors=new List<Node>();
@@ -14,18 +14,12 @@ public class Node : MonoBehaviour {
 	public Node(){
 	}
 
-	Node(bool _walkable){
-		walkable = _walkable;
+	public Node(Vector2 _mycoords){
+		mycoords = _mycoords;
 	}
 
-	Node(Node _parent){
+	public Node(Node _parent){
 		parent = _parent;
 	}
-
-	//neighbors should happen outside the node itself
-
-	void Start(){
-		myCoords = transform.position;
-			}
 
 }
